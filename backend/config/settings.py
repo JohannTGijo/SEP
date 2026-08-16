@@ -20,12 +20,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-09(ldk0tt4n%dva*u76469)=)2phiag#jxb-s*8^3wtapuy2b2'
+import os
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'dev-only-secret-key')
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'sep-qcdu.onrender.com',
+]
 
 
 # Application definition
@@ -129,6 +133,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]
+
+if os.environ.get("FRONTEND_URL"):
+    CORS_ALLOWED_ORIGINS.append(os.environ["FRONTEND_URL"])
 CORS_ALLOW_CREDENTIALS = True
 
 # REST Framework Configuration
