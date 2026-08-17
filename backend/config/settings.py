@@ -132,6 +132,7 @@ STATIC_URL = 'static/'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "https://sep-1-3xm8.onrender.com",
 ]
 
 if os.environ.get("FRONTEND_URL"):
